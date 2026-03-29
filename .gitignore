@@ -153,3 +153,8 @@ vite.config.ts.timestamp-*
 # OS
 .DS_Store
 Thumbs.db
+
+.env
+*.env
+config/
+secrets/
