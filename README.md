@@ -1,24 +1,21 @@
-# Desktop Inventory System
+# 📦 Desktop Inventory System
 
-## Project Overview
-Engineering-driven offline inventory management desktop application.
+> Engineering-driven offline inventory management desktop application.
 
-## Tech Stack
-- Electron.js (Desktop)
-- Nest.js (Backend)
-- SQLite (Database)
-- TypeScript (Language)
+## 🎯 What This App Does
+- Track stock levels for products/items
+- Record stock-in (purchases) and stock-out (sales)
+- Generate reports (CSV/PDF)
+- Work 100% offline with local SQLite database
+- Auto-backup to prevent data loss
 
-## Team
-- Project Lead: [Your Name]
-- Members: [List all 6 members]
+## 🛠️ Tech Stack
+| Layer | Technology |
+|-------|-----------|
+| Desktop Shell | Electron.js |
+| Backend Logic | Nest.js (Node.js) |
+| Database | SQLite + TypeORM |
+| Language | TypeScript |
+| Testing | Jest + Supertest |
 
-## Setup Instructions
-1. Clone this repository
-2. Run `npm install`
-3. Run `npm run dev`
-
-## Contributing
-- Create a branch before coding
-- Never push directly to main
-- Submit Pull Requests for review
+## 📁 Project Structure
