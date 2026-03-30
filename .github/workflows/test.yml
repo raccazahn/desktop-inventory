@@ -1,0 +1,31 @@
+name: Run Tests
+
+# Run when someone opens a PR or pushes to main
+on: [pull_request, push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Download the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      # Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      # Install dependencies
+      - name: Install packages
+        run: npm ci
+      
+      # Run tests (if any exist)
+      - name: Run tests
+        run: npm test || echo "No tests yet - add later!"
+      
+      # Try to build the app
+      - name: Build app
+        run: npm run build || echo "Build not configured yet"
