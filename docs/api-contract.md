@@ -57,17 +57,3 @@ This document defines the API endpoints that Frontend and Backend MUST follow.
 }
 
 
-### Step 3: Commit the File
-1. Scroll down to **Commit new file**
-2. Commit message: `Docs: Add API contract template for Backend-Frontend coordination`
-3. Click **Commit changes**
-
-✅ **Done!** Now your Backend dev can fill this in, and Frontend dev knows what to expect.
-
----
-
-## ✅ TASK 4: Send a Simple Message to Your Team
-
-**What to do:** Let your team know the repo is ready and what to do next.
-
-**Copy-paste this message to your WhatsApp/Telegram group:**
