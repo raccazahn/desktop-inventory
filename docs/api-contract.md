@@ -2,7 +2,7 @@
 
 This document defines the API endpoints that Frontend and Backend MUST follow.
 
-## 📜 Rules
+ 📜 Rules
 1. Backend MUST define endpoints BEFORE coding
 2. Frontend MUST review and approve before building UI
 3. Changes require team discussion and updating this document
@@ -364,13 +364,13 @@ This document defines the API endpoints that Frontend and Backend MUST follow.
 
 ---
 
-### **ASSIGNMENT 4: FRONTEND DEVELOPER **
+ **ASSIGNMENT 4: FRONTEND DEVELOPER **
 
 **WAIT UNTIL:** Backend Developer completes Task 3.1 (API Contract)
 
 ---
 
-#### **TASK 4.1: Design UI Wireframes**
+ **TASK 4.1: Design UI Wireframes**
 
 **GitHub Issue Title:** `Frontend: Create wireframes for all major screens`
 
@@ -383,15 +383,15 @@ This document defines the API endpoints that Frontend and Backend MUST follow.
 
 **Use Figma (Free) or Balsamiq:**
 ```bash
-# Go to https://www.figma.com/
-# Create free account
-# Create new design file
+ Go to https://www.figma.com/
+ Create free account
+ Create new design file
 
-# Design these screens:
-# 1. Login Page
-# 2. Dashboard
-# 3. Equipment Catalog
-# 4. Checkout Form
-# 5. Reports Page
+ Design these screens:
+ 1. Login Page
+ 2. Dashboard
+ 3. Equipment Catalog
+ 4. Checkout Form
+ 5. Reports Page
 
 # Export as PNG and save to /docs/wireframes/
