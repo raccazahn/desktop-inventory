@@ -1,50 +1,32 @@
-# 📦 Desktop Inventory System
+# Tubman University Computer Lab Inventory System
 
-> Engineering-driven offline inventory management desktop application.
+## 📋 Project Overview
+A desktop application for managing computer lab equipment, borrowing workflows, and maintenance records.
 
- 🎯 What This App Does
-- Track stock levels for products/items
-- Record stock-in (purchases) and stock-out (sales)
-- Generate reports (CSV/PDF)
-- Work 100% offline with local SQLite database
-- Auto-backup to prevent data loss
-
- 🛠️ Tech Stack
-| Layer | Technology |
-|-------|-----------|
-| Desktop Shell | Electron.js |
-| Backend Logic | Nest.js (Node.js) |
-| Database | SQLite + TypeORM |
-| Language | TypeScript |
-| Testing | Jest + Supertest |
-
- 📁 Project Structure
-
-
+## 🛠️ Tech Stack
+- **Frontend:** Electron.js + React.js + TypeScript
+- **Backend:** Nest.js + TypeScript  
+- **Database:** SQLite + TypeORM
 
 ## 👥 Team
-| Role | Member | Assigned Issue |
-|------|--------|---------------|
-| Project Lead | Princeton | Managing |
-| Frontend Dev | Regstopher | #1 |
-| Database Dev | Oliver | #2 |
-| Backend Dev | Philip | #3 |
+| Role | Member |
+|------|--------|
+| Project Lead | Princeton |
+| Frontend | Regesrotph |
+| Backend | Philip |
+| Database | Oliver |
+| QA | Ernest |
+| DevOps | Alice |
 
- 🚀 How to Contribute
-1. Clone this repo: `git clone [repo-url]`
-2. Create a branch: `git checkout -b feature/your-task`
-3. Code in your assigned folder
-4. Test locally
-5. Push branch & create Pull Request
-6. Wait for Lead review & approval
+## 📅 Timeline
+March 30 - May 11, 2026
 
- 🔐 Security Rules
-- NEVER commit `.env` files or hardcoded passwords
-- NEVER add personal emails/phones in code comments
-- ALWAYS use environment variables for secrets
+## 🚀 Getting Started
+1. Clone this repo
+2. Install dependencies: `npm install`
+3. Run development: `npm run dev`
 
- 📚 Resources
-- [Getting Started Guide](docs/GETTING-STARTED.md)
-- [Nest.js Docs](https://docs.nestjs.com)
-- [Electron Docs](https://www.electronjs.org/docs)
-- [TypeORM Docs](https://typeorm.io)
+## 📚 Documentation
+- [SRS Document](./docs/SRS.md)
+- [Project Plan](./docs/ProjectPlan.md)
+- [API Contract](./docs/api-contract.md)
