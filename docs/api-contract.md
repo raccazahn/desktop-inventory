@@ -349,3 +349,49 @@ This document defines the API endpoints that Frontend and Backend MUST follow.
 - `endDate` - End date (ISO format)
 
 **Success Response (200):**
+
+
+**Deliverable:**
+- ✅ All API endpoints defined in `/docs/api-contract.md`
+- ✅ Frontend Developer has reviewed and approved
+- ✅ Project Lead has approved
+
+**Acceptance Criteria:**
+- [ ] All CRUD operations defined
+- [ ] Request/response formats clear
+- [ ] Error responses documented
+- [ ] Frontend Developer confirms they can build UI from this
+
+---
+
+### **ASSIGNMENT 4: FRONTEND DEVELOPER **
+
+**WAIT UNTIL:** Backend Developer completes Task 3.1 (API Contract)
+
+---
+
+#### **TASK 4.1: Design UI Wireframes**
+
+**GitHub Issue Title:** `Frontend: Create wireframes for all major screens`
+
+**What to Do:**
+1. Review API contract
+2. Design wireframes for 5 major screens
+3. Get approval from Project Lead
+
+**How to Do It:**
+
+**Use Figma (Free) or Balsamiq:**
+```bash
+# Go to https://www.figma.com/
+# Create free account
+# Create new design file
+
+# Design these screens:
+# 1. Login Page
+# 2. Dashboard
+# 3. Equipment Catalog
+# 4. Checkout Form
+# 5. Reports Page
+
+# Export as PNG and save to /docs/wireframes/
