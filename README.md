@@ -27,6 +27,6 @@ March 30 - May 11, 2026
 3. Run development: `npm run dev`
 
 ## 📚 Documentation
-- [SRS Document](./docs/SRSDoc.docx)
-- [Project Plan](./docs/ProjectPlan.docx)
+- [SRS Document](./docs/SRS-Doc.pdf)
+- [Project Plan](./docs/Project-Plan.pdf)
 - [API Contract](./docs/api-contract.md)
