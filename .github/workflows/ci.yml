@@ -1,0 +1,57 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm ci
+      
+      - name: Run Backend Tests
+        run: |
+          cd backend
+          npm test
+      
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm ci
+      
+      - name: Run Frontend Tests
+        run: |
+          cd frontend
+          npm test
+  
+  build:
+    needs: test
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Build Electron App
+        run: |
+          npm install
+          npm run build
+      
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: lab-inventory-installer
+          path: dist/

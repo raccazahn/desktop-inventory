@@ -1,0 +1,39 @@
+# In repository, click "Add file" → "Create new file"
+# Filename: .gitignore
+# Paste this content:
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+
+# Build outputs
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+
+# Temporary files
+tmp/
+temp/
