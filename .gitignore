@@ -1,10 +1,5 @@
-# In repository, click "Add file" → "Create new file"
-# Filename: .gitignore
-# Paste this content:
-
 # Dependencies
 node_modules/
-package-lock.json
 
 # Environment variables
 .env
