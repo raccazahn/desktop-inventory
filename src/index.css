@@ -1,13 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Professional Dark Theme Color Palette */
+:root {
+  /* Primary - Deep Navy Blue */
+  --primary-50: #f0f4ff;
+  --primary-100: #e0e9ff;
+  --primary-200: #c7d5fe;
+  --primary-300: #a4b8fc;
+  --primary-400: #7c94f9;
+  --primary-500: #5a67f5;
+  --primary-600: #4f46e5;
+  --primary-700: #4338ca;
+  --primary-800: #3730a3;
+  --primary-900: #312e81;
+  --primary-950: #1e1b4b;
+  
+  /* Background - Dark Slate */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --bg-card: #1e293b;
+  --bg-hover: #334155;
+  
+  /* Text Colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --text-muted: #64748b;
+  
+  /* Accent Colors */
+  --success: #10b981;
+  --success-dark: #059669;
+  --warning: #f59e0b;
+  --warning-dark: #d97706;
+  --danger: #ef4444;
+  --danger-dark: #dc2626;
+  --info: #3b82f6;
+  --info-dark: #2563eb;
+  
+  /* Borders */
+  --border-light: #334155;
+  --border-medium: #475569;
+  --border-dark: #64748b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  min-height: 100vh;
+  color: var(--text-primary);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Professional Button Styles - Dark Theme */
+.btn-primary {
+  @apply bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-700 
+         hover:from-indigo-700 hover:via-blue-700 hover:to-indigo-800 
+         text-white font-semibold py-3 px-6 rounded-xl 
+         shadow-lg hover:shadow-xl hover:shadow-indigo-500/25
+         transform hover:scale-105 transition-all duration-200
+         border border-indigo-500/20;
+}
+
+.btn-secondary {
+  @apply bg-gradient-to-r from-slate-600 to-slate-700 
+         hover:from-slate-700 hover:to-slate-800 
+         text-white font-semibold py-3 px-6 rounded-xl 
+         shadow-lg hover:shadow-xl 
+         transform hover:scale-105 transition-all duration-200
+         border border-slate-500/20;
+}
+
+.btn-success {
+  @apply bg-gradient-to-r from-emerald-600 to-green-700 
+         hover:from-emerald-700 hover:to-green-800 
+         text-white font-semibold py-3 px-6 rounded-xl 
+         shadow-lg hover:shadow-xl hover:shadow-emerald-500/25
+         transform hover:scale-105 transition-all duration-200
+         border border-emerald-500/20;
+}
+
+.btn-danger {
+  @apply bg-gradient-to-r from-red-600 to-rose-700 
+         hover:from-red-700 hover:to-rose-800 
+         text-white font-semibold py-3 px-6 rounded-xl 
+         shadow-lg hover:shadow-xl hover:shadow-red-500/25
+         transform hover:scale-105 transition-all duration-200
+         border border-red-500/20;
+}
+
+/* Card Styles - Dark Theme */
+.card {
+  @apply bg-slate-800/80 backdrop-blur-xl 
+         rounded-2xl shadow-xl 
+         border border-slate-700/50
+         hover:shadow-2xl hover:border-slate-600/50 
+         transition-all duration-300;
+}
+
+.card-header {
+  @apply bg-gradient-to-r from-slate-800 to-slate-900 
+         border-b border-slate-700/50 
+         px-6 py-4 rounded-t-2xl;
+}
+
+/* Input Styles - Dark Theme */
+.input-field {
+  @apply w-full px-4 py-3 
+         bg-slate-800/50 backdrop-blur-sm
+         border border-slate-600/50 
+         rounded-xl 
+         text-slate-100 placeholder-slate-400
+         focus:ring-2 focus:ring-indigo-500/50 
+         focus:border-indigo-500/50 
+         focus:bg-slate-800
+         transition-all duration-200;
+}
+
+/* Table Styles - Dark Theme */
+.table-dark {
+  @apply w-full bg-slate-800/50 backdrop-blur-sm 
+         rounded-2xl overflow-hidden 
+         border border-slate-700/50;
+}
+
+.table-header {
+  @apply bg-gradient-to-r from-slate-800 to-slate-900 
+         border-b border-slate-700/50;
+}
+
+.table-row {
+  @apply border-b border-slate-700/30 
+         hover:bg-slate-700/30 
+         transition-colors duration-200;
+}
+
+/* Badge Styles - Dark Theme */
+.badge-success {
+  @apply bg-emerald-500/20 text-emerald-400 
+         border border-emerald-500/30 
+         px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.badge-warning {
+  @apply bg-amber-500/20 text-amber-400 
+         border border-amber-500/30 
+         px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.badge-danger {
+  @apply bg-red-500/20 text-red-400 
+         border border-red-500/30 
+         px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.badge-info {
+  @apply bg-blue-500/20 text-blue-400 
+         border border-blue-500/30 
+         px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+/* Scrollbar - Dark Theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Selection Color */
+::selection {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+/* Gradient Text */
+.gradient-text {
+  @apply bg-gradient-to-r from-indigo-400 via-blue-400 to-indigo-400 
+         bg-clip-text text-transparent;
+}
+
+/* Glow Effects */
+.glow-indigo {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
 }
