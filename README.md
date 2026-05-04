@@ -1,32 +1,13 @@
-# Tubman University Computer Lab Inventory System
+# 🖥️ Desktop Inventory Management System
 
-## 📋 Project Overview
-A desktop application for managing computer lab equipment, borrowing workflows, and maintenance records.
+A full-stack inventory tracking system for computer lab equipment.
 
-## 🛠️ Tech Stack
-- **Frontend:** Electron.js + React.js + TypeScript
-- **Backend:** Nest.js + TypeScript  
-- **Database:** SQLite + TypeORM
-
-## 👥 Team
-| Role | Member |
-|------|--------|
-| Project Lead | Princeton |
-| Frontend | Regesrotph |
-| Backend | Philip |
-| Database | Oliver |
-| QA | Ernest |
-| DevOps | Alice |
-
-## 📅 Timeline
-March 30 - May 11, 2026
+## 📁 Project Structure
+- frontend/ - React + TypeScript frontend
+- backend/ - NestJS + TypeScript backend
 
 ## 🚀 Getting Started
-1. Clone this repo
-2. Install dependencies: `npm install`
-3. Run development: `npm run dev`
+See individual folder README files for setup instructions.
 
-## 📚 Documentation
-- [SRS Document](./docs/SRS-Doc.pdf)
-- [Project Plan](./docs/Project-Plan.pdf)
-- [API Contract](./docs/api-contract.md)
+## 👥 Team
+- Project Lead: @raccazahn
