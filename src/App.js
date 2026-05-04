@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
@@ -13,7 +13,7 @@ import StudentEquipment from './pages/StudentEquipment';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         {/* Public Route */}
         <Route path="/login" element={<Login />} />
@@ -61,7 +61,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 

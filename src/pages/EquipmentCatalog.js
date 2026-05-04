@@ -87,20 +87,45 @@ const EquipmentCatalog = () => {
     setShowEditModal(true);
   };
 
+  // ✅ FIXED: Delete with better error handling for foreign keys
   const handleDelete = async function(id) {
-    if (window.confirm('Are you sure you want to delete this equipment?')) {
+    // Get equipment name for confirmation message
+    var item = equipment.find(function(e) { return e.id === id; });
+    var itemName = item ? item.name : 'this equipment';
+    
+    if (window.confirm('Are you sure you want to delete "' + itemName + '"?\n\n⚠️ Warning: If this item has checkout records, deletion may fail.')) {
       try {
         const token = localStorage.getItem('token');
+        
+        console.log('🗑️ Deleting equipment ID:', id);
         await axios.delete('http://localhost:3000/api/equipment/' + id, {
-          headers: { Authorization: 'Bearer ' + token }
+          headers: { 
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+          }
         });
-        setSuccess('✓ Equipment deleted successfully!');
-        fetchEquipment();
+        
+        console.log('✅ Equipment deleted successfully');
+        setSuccess('✓ "' + itemName + '" deleted successfully!');
+        fetchEquipment(); // Refresh list
         setTimeout(function() { setSuccess(''); }, 3000);
+        
       } catch (err) {
         console.error('❌ Error deleting:', err);
-        setError('✗ Error deleting equipment');
-        setTimeout(function() { setError(''); }, 3000);
+        
+        // ✅ Handle foreign key constraint error specifically
+        var errorMsg = '✗ Error deleting equipment';
+        if (err.response && err.response.data && err.response.data.message) {
+          var backendMsg = err.response.data.message;
+          if (backendMsg.includes('FOREIGN KEY') || backendMsg.includes('constraint')) {
+            errorMsg = '✗ Cannot delete: This item has checkout records.\n\nSolution: Delete associated checkouts first, or mark equipment as "Unavailable" instead.';
+          } else {
+            errorMsg = '✗ ' + backendMsg;
+          }
+        }
+        
+        setError(errorMsg);
+        setTimeout(function() { setError(''); }, 6000);
       }
     }
   };
@@ -171,7 +196,7 @@ const EquipmentCatalog = () => {
           <div className="bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 p-4 rounded-xl mb-6">{success}</div>
         )}
         {error && (
-          <div className="bg-red-500/20 border border-red-500/30 text-red-400 p-4 rounded-xl mb-6">{error}</div>
+          <div className="bg-red-500/20 border border-red-500/30 text-red-400 p-4 rounded-xl mb-6 whitespace-pre-line">{error}</div>
         )}
         
         {equipment.length === 0 ? (
@@ -275,7 +300,7 @@ const EquipmentCatalog = () => {
         )}
       </div>
 
-      {/* ADD EQUIPMENT MODAL */}
+      {/* ADD EQUIPMENT MODAL - FIXED STRUCTURE */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="card max-w-2xl w-full mx-4 p-6 max-h-[90vh] overflow-y-auto">
@@ -283,26 +308,7 @@ const EquipmentCatalog = () => {
               <h2 className="text-2xl font-bold text-slate-100">Add New Equipment</h2>
               <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-200 text-2xl">×</button>
             </div>
-            <select
             
-  value={formData.category}
-  onChange={(e) => setFormData({...formData, category: e.target.value})}
-  className="input-field"
->
-  <option value="">Select category...</option>
-  <option value="Desktop">Desktop Computer</option>
-  <option value="Laptop">Laptop Computer</option>
-  <option value="Mouse">Mouse (Wireless/Wired)</option>
-  <option value="Keyboard">Keyboard (Wireless/Wired)</option>
-  <option value="Projector">Projector</option>
-  <option value="Monitor">Monitor</option>
-  <option value="Headphones">Headphones</option>
-  <option value="Webcam">Webcam</option>
-  <option value="Speaker">Speaker</option>
-  <option value="Cable">Cable/Adapter</option>
-  <option value="Other">Other</option>
-</select>
-
             <form onSubmit={(e) => handleSubmit(e, false)} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -375,13 +381,24 @@ const EquipmentCatalog = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">Category</label>
-                  <input
-                    type="text"
-                    placeholder="e.g., Desktop, Laptop"
+                  <select
                     value={formData.category}
                     onChange={(e) => setFormData({...formData, category: e.target.value})}
                     className="input-field"
-                  />
+                  >
+                    <option value="">Select category...</option>
+                    <option value="Desktop">Desktop Computer</option>
+                    <option value="Laptop">Laptop Computer</option>
+                    <option value="Mouse">Mouse (Wireless/Wired)</option>
+                    <option value="Keyboard">Keyboard (Wireless/Wired)</option>
+                    <option value="Projector">Projector</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="Headphones">Headphones</option>
+                    <option value="Webcam">Webcam</option>
+                    <option value="Speaker">Speaker</option>
+                    <option value="Cable">Cable/Adapter</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
               </div>
 
@@ -475,12 +492,24 @@ const EquipmentCatalog = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-2">Category</label>
-                  <input
-                    type="text"
+                  <select
                     value={formData.category}
                     onChange={(e) => setFormData({...formData, category: e.target.value})}
                     className="input-field"
-                  />
+                  >
+                    <option value="">Select category...</option>
+                    <option value="Desktop">Desktop Computer</option>
+                    <option value="Laptop">Laptop Computer</option>
+                    <option value="Mouse">Mouse (Wireless/Wired)</option>
+                    <option value="Keyboard">Keyboard (Wireless/Wired)</option>
+                    <option value="Projector">Projector</option>
+                    <option value="Monitor">Monitor</option>
+                    <option value="Headphones">Headphones</option>
+                    <option value="Webcam">Webcam</option>
+                    <option value="Speaker">Speaker</option>
+                    <option value="Cable">Cable/Adapter</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
               </div>
 

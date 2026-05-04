@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
 
 const Reports = () => {
   const [reportType, setReportType] = useState('utilization');
@@ -63,22 +65,181 @@ const Reports = () => {
     }
   };
 
-  const handleExportPDF = function() {
-    var data = 'LAB INVENTORY REPORT\nGenerated: ' + new Date().toLocaleString() + '\n\n';
-    data += 'Total Equipment: ' + stats.total + '\n';
-    data += 'Available: ' + stats.available + '\n';
-    data += 'Checked Out: ' + stats.checkedOut + '\n';
-    data += 'Overdue: ' + stats.overdue + '\n';
-    
-    var blob = new Blob([data], { type: 'text/plain' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'LabInventory_Report_' + new Date().toISOString().split('T')[0] + '.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    alert('✓ Report downloaded!');
+  // ✅ PROFESSIONAL PDF EXPORT WITH REAL STYLING
+  const handleExportPDF = async function() {
+    try {
+      const { jsPDF } = await import('jspdf');
+      await import('jspdf-autotable');
+      
+      // Create new PDF document
+      const doc = new jsPDF();
+      
+      // Brand colors
+      const primaryColor = [79, 70, 229];    // indigo-600
+      const successColor = [16, 185, 129];   // emerald-500
+      const warningColor = [245, 158, 11];   // amber-500
+      const dangerColor = [239, 68, 68];     // red-500
+      const darkColor = [30, 41, 59];        // slate-800
+      const lightColor = [248, 250, 252];    // slate-50
+      
+      // Get user info for report metadata
+      var user = 'Admin';
+      try {
+        var storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          var userData = JSON.parse(storedUser);
+          user = userData.username || userData.email || 'User';
+        }
+      } catch (e) {}
+      
+      // 🎨 HEADER: Branded title bar
+      doc.setFillColor(darkColor[0], darkColor[1], darkColor[2]);
+      doc.rect(0, 0, 210, 35, 'F');
+      
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(18);
+      doc.setFont('helvetica', 'bold');
+      doc.text('🖥️ Desktop Inventory System', 105, 15, { align: 'center' });
+      
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Professional Equipment Management Report', 105, 23, { align: 'center' });
+      
+      // Report metadata
+      doc.setTextColor(148, 163, 184); // slate-400
+      doc.setFontSize(9);
+      doc.text('Generated: ' + new Date().toLocaleString(), 14, 42);
+      doc.text('By: ' + user, 14, 47);
+      doc.text('Report Type: ' + reportType.toUpperCase(), 14, 52);
+      
+      // 📊 STATS SECTION: Summary cards
+      doc.setTextColor(darkColor[0], darkColor[1], darkColor[2]);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.text('📈 Summary Statistics', 14, 65);
+      
+      var statsData = [
+        ['Total Equipment', stats.total.toString(), 'All registered items'],
+        ['Available', stats.available.toString(), 'Ready for checkout'],
+        ['Checked Out', stats.checkedOut.toString(), 'Currently in use'],
+        ['Overdue', stats.overdue.toString(), 'Needs attention']
+      ];
+      
+      doc.autoTable({
+        startY: 70,
+        head: [['Metric', 'Count', 'Description']],
+        body: statsData,
+        theme: 'grid',
+        headStyles: { 
+          fillColor: primaryColor,
+          textColor: [255, 255, 255],
+          fontStyle: 'bold',
+          fontSize: 9
+        },
+        bodyStyles: { 
+          textColor: darkColor,
+          fontSize: 8,
+          cellPadding: 3
+        },
+        alternateRowStyles: { fillColor: [241, 245, 249] }, // slate-100
+        columnStyles: {
+          0: { cellWidth: 50, fontStyle: 'bold' },
+          1: { cellWidth: 30, halign: 'center' },
+          2: { cellWidth: 90 }
+        },
+        margin: { left: 14, right: 14 }
+      });
+      
+      // 📋 EQUIPMENT TABLE SECTION
+      var finalY = doc.lastAutoTable.finalY + 10;
+      
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.text('💻 Equipment Inventory', 14, finalY);
+      
+      // Prepare equipment data for table
+      var equipRows = equipment.map(function(item) {
+        return [
+          item.name || 'Unknown',
+          item.serialNumber || '-',
+          item.status || 'Unknown',
+          item.location || '-',
+          item.condition || '-'
+        ];
+      });
+      
+      doc.autoTable({
+        startY: finalY + 5,
+        head: [['Equipment Name', 'Serial Number', 'Status', 'Location', 'Condition']],
+        body: equipRows,
+        theme: 'striped',
+        headStyles: { 
+          fillColor: primaryColor,
+          textColor: [255, 255, 255],
+          fontStyle: 'bold',
+          fontSize: 8
+        },
+        bodyStyles: { 
+          textColor: darkColor,
+          fontSize: 8,
+          cellPadding: 2
+        },
+        alternateRowStyles: { fillColor: [248, 250, 252] },
+        columnStyles: {
+          0: { cellWidth: 50 },
+          1: { cellWidth: 35, fontStyle: 'normal' },
+          2: { 
+            cellWidth: 30,
+            fontStyle: 'bold',
+            fillColor: function(data) {
+              if (data.row.index % 2 === 0) return [248, 250, 252];
+              return undefined;
+            }
+          },
+          3: { cellWidth: 35 },
+          4: { cellWidth: 30 }
+        },
+        didParseCell: function(data) {
+          // Color-code status column
+          if (data.section === 'body' && data.column.index === 2) {
+            var status = data.cell.raw;
+            if (status === 'Available') {
+              data.cell.styles.textColor = successColor;
+            } else if (status === 'In Use' || status === 'borrowed') {
+              data.cell.styles.textColor = warningColor;
+            } else {
+              data.cell.styles.textColor = dangerColor;
+            }
+          }
+        },
+        margin: { left: 14, right: 14 }
+      });
+      
+      // 📄 FOOTER
+      var pageCount = doc.internal.getNumberOfPages();
+      for (var i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.setTextColor(148, 163, 184);
+        doc.text(
+          '© 2026 Desktop Inventory System | Confidential Report | Page ' + i + ' of ' + pageCount,
+          105,
+          doc.internal.pageSize.height - 10,
+          { align: 'center' }
+        );
+      }
+      
+      // 💾 SAVE PDF
+      var fileName = 'DesktopInventory_Report_' + reportType + '_' + new Date().toISOString().split('T')[0] + '.pdf';
+      doc.save(fileName);
+      
+      alert('📄 Professional PDF report downloaded successfully!\n\nFile: ' + fileName);
+      
+    } catch (err) {
+      console.error('❌ Error generating PDF:', err);
+      setError('✗ Failed to generate PDF. Please try again.');
+      setTimeout(function() { setError(''); }, 5000);
+    }
   };
 
   const handleExportExcel = function() {
@@ -94,7 +255,7 @@ const Reports = () => {
     });
     
     var csv = [headers.join(','), rows.map(function(r) { return r.join(','); }).join('\n')].join('\n');
-    var blob = new Blob([csv], { type: 'text/csv' });
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
@@ -102,7 +263,7 @@ const Reports = () => {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    alert('✓ Excel file downloaded!');
+    alert('✓ Excel file downloaded successfully!');
   };
 
   if (loading) {
