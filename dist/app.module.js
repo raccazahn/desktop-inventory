@@ -12,8 +12,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const equipment_module_1 = require("./equipment/equipment.module");
-const checkout_requests_module_1 = require("./checkout-requests/checkout-requests.module");
 const checkout_module_1 = require("./checkout/checkout.module");
+const checkout_requests_module_1 = require("./checkout-requests/checkout-requests.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;

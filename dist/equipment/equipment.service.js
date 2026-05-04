@@ -21,11 +21,16 @@ let EquipmentService = class EquipmentService {
     constructor(equipmentRepository) {
         this.equipmentRepository = equipmentRepository;
     }
+    async create(createEquipmentDto) {
+        const equipment = this.equipmentRepository.create(createEquipmentDto);
+        return await this.equipmentRepository.save(equipment);
+    }
     async findAll(status) {
-        if (status) {
-            return await this.equipmentRepository.find({ where: { status } });
+        const where = {};
+        if (status && status !== 'all') {
+            where.status = status;
         }
-        return await this.equipmentRepository.find();
+        return await this.equipmentRepository.find({ where });
     }
     async findOne(id) {
         const equipment = await this.equipmentRepository.findOne({ where: { id } });
@@ -34,10 +39,6 @@ let EquipmentService = class EquipmentService {
         }
         return equipment;
     }
-    async create(createEquipmentDto) {
-        const equipment = this.equipmentRepository.create(createEquipmentDto);
-        return await this.equipmentRepository.save(equipment);
-    }
     async update(id, updateEquipmentDto) {
         const equipment = await this.findOne(id);
         Object.assign(equipment, updateEquipmentDto);
@@ -45,6 +46,15 @@ let EquipmentService = class EquipmentService {
     }
     async remove(id) {
         const equipment = await this.findOne(id);
+        const checkoutCount = await this.equipmentRepository
+            .createQueryBuilder('equipment')
+            .leftJoin('checkout', 'checkout', 'checkout.equipmentId = equipment.id')
+            .where('equipment.id = :id', { id })
+            .getCount();
+        if (checkoutCount > 0) {
+            throw new common_1.BadRequestException(`Cannot delete equipment: ${checkoutCount} checkout record(s) reference this item. 
+         Please delete associated checkouts first or mark equipment as unavailable.`);
+        }
         await this.equipmentRepository.remove(equipment);
         return { message: 'Equipment deleted successfully' };
     }

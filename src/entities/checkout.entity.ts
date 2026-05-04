@@ -7,14 +7,14 @@ export class Checkout {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Equipment, { eager: true })
+  @ManyToOne(() => Equipment, { eager: true, onDelete: 'CASCADE' })  // ✅ Add onDelete: 'CASCADE'
   @JoinColumn({ name: 'equipment_id' })
   equipment: Equipment;
 
   @Column({ name: 'equipment_id' })
   equipmentId: number;
 
-  @ManyToOne(() => User, { eager: true, nullable: true })
+  @ManyToOne(() => User, { eager: true, nullable: true, onDelete: 'SET NULL' })  // ✅ Add onDelete
   @JoinColumn({ name: 'user_id' })
   user: User;
 
@@ -35,7 +35,7 @@ export class Checkout {
 
   @Column({ type: 'varchar', length: 50, default: 'borrowed' })
   status: string;
-  
+
   @CreateDateColumn()
   createdAt: Date;
 

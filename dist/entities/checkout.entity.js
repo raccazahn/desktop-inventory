@@ -21,7 +21,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Checkout.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => equipment_entity_1.Equipment, { eager: true }),
+    (0, typeorm_1.ManyToOne)(() => equipment_entity_1.Equipment, { eager: true, onDelete: 'CASCADE' }),
     (0, typeorm_1.JoinColumn)({ name: 'equipment_id' }),
     __metadata("design:type", equipment_entity_1.Equipment)
 ], Checkout.prototype, "equipment", void 0);
@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Checkout.prototype, "equipmentId", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, { eager: true, nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, { eager: true, nullable: true, onDelete: 'SET NULL' }),
     (0, typeorm_1.JoinColumn)({ name: 'user_id' }),
     __metadata("design:type", user_entity_1.User)
 ], Checkout.prototype, "user", void 0);
