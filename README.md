@@ -57,14 +57,14 @@ at Tubman University.
 
 ## 👥 Team
 
-| Role | Member | Responsibilities | Contact |
+| Role | Member | Responsibilities | 
 |------|--------|-----------------|
-| 🧑‍💼 Project Lead | Princeton | Project management, architecture decisions, integration | +231-778-003-727
-| 🎨 Frontend Developer | Regesrotph | React UI, routing, component design, Tailwind styling | +231-886-119-414
-| ⚙️ Backend Developer | Philip | NestJS API, authentication, business logic | +231-880-342-400
-| 🗄️ Database Engineer | Oliver | SQLite schema, TypeORM entities, migrations | +231-880-636-164
-| 🧪 QA Engineer | Ernest | Testing, bug reporting, quality assurance | +231-888-167-489
-| 🚀 DevOps | Alice | Electron packaging, build pipeline, deployment | +231-881-704-430
+| 🧑‍💼 Project Lead | Princeton | Project management, architecture decisions, integration 
+| 🎨 Frontend Developer | Regesrotph | React UI, routing, component design, Tailwind styling 
+| ⚙️ Backend Developer | Philip | NestJS API, authentication, business logic 
+| 🗄️ Database Engineer | Oliver | SQLite schema, TypeORM entities, migrations 
+| 🧪 QA Engineer | Ernest | Testing, bug reporting, quality assurance 
+| 🚀 DevOps | Alice | Electron packaging, build pipeline, deployment 
 
 ---
 
@@ -82,6 +82,7 @@ at Tubman University.
 ---
 
 ## 🏗️ Project Structure
+___
 desktop-inventory/                ← GitHub repository root
 ├── README.md                     ← Project documentation (this file)
 │
